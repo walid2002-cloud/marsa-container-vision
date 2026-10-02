@@ -1,0 +1,15 @@
+{
+  "_comment": "Frames ajoutées dynamiquement (uploads, vidéos). Rechargé par le service IA.",
+  "frames": {
+    "CAM_03": [
+      {
+        "filename": "cam03_upload_1782144036_a59f1cdb.png",
+        "source": "upload",
+        "url": "/demo_images/cam03_upload_1782144036_a59f1cdb.png",
+        "local_path": "/app/demo_images/cam03_upload_1782144036_a59f1cdb.png",
+        "primary_code": "471587",
+        "added_at": "2026-06-22T16:00:36Z"
+      }
+    ]
+  }
+}

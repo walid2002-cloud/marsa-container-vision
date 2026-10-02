@@ -1,0 +1,139 @@
+.history-table-wrapper {
+  overflow-x: auto;
+  border-radius: var(--mcv-radius-sm);
+  border: 1px solid var(--mcv-border);
+  background: var(--mcv-card);
+}
+
+.history-table {
+  width: 100%;
+  min-width: 780px;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.history-table thead {
+  background: var(--mcv-bg-subtle);
+}
+
+.history-table th {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--mcv-text-muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1.5px solid var(--mcv-border);
+  white-space: nowrap;
+}
+
+.history-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--mcv-border-light);
+  color: var(--mcv-text);
+}
+
+.history-table tbody tr {
+  transition: background var(--mcv-transition);
+}
+
+.history-table tbody tr:hover {
+  background: rgba(6, 182, 212, 0.04);
+}
+
+.history-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.code-cell {
+  font-weight: 600;
+  font-family: 'SF Mono', 'Courier New', monospace;
+  color: var(--mcv-navy);
+  letter-spacing: 0.02em;
+}
+
+.confidence-cell {
+  font-weight: 600;
+  color: var(--mcv-primary);
+}
+
+.source-cell {
+  font-size: 0.82rem;
+  color: var(--mcv-text-muted);
+}
+
+.admin-cell {
+  font-size: 0.85rem;
+  color: var(--mcv-text-muted);
+}
+
+.date-cell {
+  font-size: 0.82rem;
+  color: var(--mcv-text-subtle);
+  white-space: nowrap;
+}
+
+.h-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.h-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.h-badge-detected {
+  background: var(--mcv-success-bg);
+  color: var(--mcv-success-text);
+  border: 1px solid var(--mcv-success-border);
+}
+
+.h-badge-detected .h-badge-dot {
+  background: var(--mcv-success);
+  animation: mcvPulse 2s ease-in-out infinite;
+}
+
+.h-badge-not-detected {
+  background: var(--mcv-warning-bg);
+  color: var(--mcv-warning-text);
+  border: 1px solid var(--mcv-warning-border);
+}
+
+.h-badge-not-detected .h-badge-dot {
+  background: var(--mcv-warning);
+}
+
+.history-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem;
+  color: var(--mcv-text-muted);
+  font-size: 0.92rem;
+  gap: 0.75rem;
+}
+
+.history-empty {
+  border: none;
+  background: transparent;
+  padding: 2rem 1rem;
+}
+
+.history-count {
+  padding: 0.55rem 1rem;
+  font-size: 0.78rem;
+  color: var(--mcv-text-subtle);
+  border-top: 1px solid var(--mcv-border-light);
+  text-align: right;
+  background: var(--mcv-bg-subtle);
+}

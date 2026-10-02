@@ -1,0 +1,331 @@
+.vision-upload-page {
+  max-width: 760px;
+}
+
+.vision-back-btn {
+  margin-bottom: 1.25rem;
+  text-decoration: none;
+  width: auto;
+  display: inline-flex;
+}
+
+.vision-hero {
+  margin-bottom: 1.5rem;
+}
+
+.vision-hero .section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.vision-card {
+  margin-bottom: 1.5rem;
+}
+
+.vision-file-input {
+  display: none;
+}
+
+.vision-dropzone {
+  border: 2px dashed var(--mcv-border);
+  border-radius: var(--mcv-radius);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  background: var(--mcv-bg-subtle);
+  transition:
+    border-color var(--mcv-transition),
+    background var(--mcv-transition),
+    box-shadow var(--mcv-transition);
+  margin-bottom: 1.25rem;
+  outline: none;
+}
+
+.vision-dropzone:hover,
+.vision-dropzone:focus-visible {
+  border-color: var(--mcv-cyan);
+  background: rgba(6, 182, 212, 0.04);
+  box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.1);
+}
+
+.vision-dropzone--over {
+  border-color: var(--mcv-cyan);
+  background: rgba(6, 182, 212, 0.08);
+  transform: scale(1.01);
+}
+
+.vision-dropzone--has-image {
+  padding: 1rem;
+  border-style: solid;
+  background: var(--mcv-card);
+}
+
+.vision-dropzone-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.vision-dropzone-icon {
+  font-size: 2.5rem;
+  opacity: 0.4;
+  margin-bottom: 0.25rem;
+}
+
+.vision-dropzone-empty strong {
+  font-size: 0.95rem;
+  color: var(--mcv-navy);
+}
+
+.vision-dropzone-empty p {
+  font-size: 0.85rem;
+  color: var(--mcv-text-muted);
+  margin: 0;
+}
+
+.vision-dropzone-formats {
+  font-size: 0.75rem;
+  color: var(--mcv-text-subtle);
+  margin-top: 0.35rem;
+}
+
+.vision-preview img {
+  max-width: 100%;
+  max-height: 320px;
+  border-radius: var(--mcv-radius-sm);
+  object-fit: contain;
+  box-shadow: var(--mcv-shadow-sm);
+}
+
+.vision-preview-hint {
+  margin-top: 0.75rem;
+  font-size: 0.78rem;
+  color: var(--mcv-text-subtle);
+}
+
+.vision-field {
+  margin-bottom: 1rem;
+}
+
+.vision-input {
+  max-width: 100%;
+}
+
+.vision-analyze-btn {
+  margin-top: 0.25rem;
+}
+
+.vision-empty-state {
+  animation: mcvPageEnter 0.4s ease-out;
+}
+
+.vision-result-card {
+  animation: mcvPageEnter 0.4s ease-out;
+}
+
+.vision-result-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--mcv-navy);
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--mcv-border-light);
+}
+
+.vision-result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.vision-result-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.85rem;
+  background: var(--mcv-bg-subtle);
+  border-radius: var(--mcv-radius-sm);
+  border: 1px solid var(--mcv-border-light);
+}
+
+.vision-result-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--mcv-text-muted);
+}
+
+.vision-result-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--mcv-navy);
+}
+
+.vision-result-confidence {
+  color: var(--mcv-primary);
+  font-size: 1.15rem;
+}
+
+.vision-result-note {
+  font-size: 0.82rem;
+  color: var(--mcv-text-muted);
+  margin: 0 0 1rem;
+  padding: 0.65rem 0.85rem;
+  background: var(--mcv-bg-subtle);
+  border-radius: var(--mcv-radius-sm);
+}
+
+.vision-codes h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--mcv-navy);
+  margin: 0 0 0.75rem;
+}
+
+.vision-code-cell {
+  font-family: 'SF Mono', 'Courier New', monospace;
+  font-weight: 600;
+}
+
+.vision-no-codes {
+  color: var(--mcv-text-muted);
+  font-style: italic;
+  font-size: 0.9rem;
+  padding: 1rem;
+  background: var(--mcv-warning-bg);
+  border-radius: var(--mcv-radius-sm);
+  border: 1px solid var(--mcv-warning-border);
+}
+
+.vision-pipeline {
+  margin-top: 1rem;
+  font-size: 0.82rem;
+  color: var(--mcv-text-muted);
+  line-height: 1.5;
+}
+
+.vision-ocr-details {
+  margin-top: 1rem;
+  font-size: 0.88rem;
+  padding: 0.75rem;
+  background: var(--mcv-bg-subtle);
+  border-radius: var(--mcv-radius-sm);
+  border: 1px solid var(--mcv-border-light);
+}
+
+.vision-ocr-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--mcv-navy);
+}
+
+.vision-ocr-details ul {
+  margin: 0.65rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--mcv-text-muted);
+}
+
+.vision-ocr-details li {
+  margin-bottom: 0.25rem;
+}
+
+.vision-mode-field {
+  border: none;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+
+.vision-mode-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+
+.vision-yolo-warn {
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: var(--mcv-radius-sm);
+  background: var(--mcv-warning-bg);
+  border: 1px solid var(--mcv-warning-border);
+  color: var(--mcv-warning-text);
+  font-size: 0.9rem;
+}
+
+.vision-warnings {
+  margin: 0 0 1rem;
+  padding-left: 1.2rem;
+  color: var(--mcv-text-muted);
+  font-size: 0.88rem;
+}
+
+.an-hint {
+  margin-bottom: 1.5rem;
+}
+
+.vision-stored-preview {
+  margin: 1.25rem 0;
+  padding: 1rem;
+  border: 1px solid var(--mcv-border);
+  border-radius: var(--mcv-radius-sm);
+  background: var(--mcv-bg-subtle);
+}
+
+.vision-stored-preview h4 {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+}
+
+.vision-stored-img {
+  width: 100%;
+  max-height: 280px;
+  object-fit: contain;
+  border-radius: var(--mcv-radius-sm);
+  background: var(--mcv-card);
+}
+
+.vision-stored-meta {
+  margin: 0.65rem 0 0;
+  font-size: 0.82rem;
+  color: var(--mcv-text-muted);
+}
+
+.vision-attach-row {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--mcv-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.vision-attach-hint {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--mcv-text-muted);
+}
+
+.mcv-success-inline {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--mcv-success-text);
+}
+
+.vision-video-help {
+  margin-top: 1.5rem;
+}
+
+.vision-code-block {
+  padding: 0.75rem 1rem;
+  background: #0f172a;
+  color: #e2e8f0;
+  border-radius: var(--mcv-radius-sm);
+  font-size: 0.8rem;
+  overflow-x: auto;
+}

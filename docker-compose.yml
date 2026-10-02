@@ -1,0 +1,226 @@
+services:
+  # --- Base de données MySQL ---
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-marsa_root_2026}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-marsa_container_db}
+      MYSQL_USER: ${MYSQL_USER:-marsa_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-marsa_pass_2026}
+    ports:
+      - "5306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - marsa-network
+
+  # --- Redis (Celery broker + résultats) ---
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    networks:
+      - marsa-network
+
+  # --- Service IA (Python / FastAPI) ---
+  ai-service:
+    build:
+      context: ./ai-service
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - DETECTION_MODE=${DETECTION_MODE:-demo}
+      - DETECTION_CONFIDENCE_THRESHOLD=${DETECTION_CONFIDENCE_THRESHOLD:-0.5}
+      - YOLO_ENABLED=${YOLO_ENABLED:-false}
+      - YOLO_CONFIDENCE_THRESHOLD=${YOLO_CONFIDENCE_THRESHOLD:-0.28}
+      # Phase 5 : préparation modèle YOLO custom conteneurs (fallback propre si absent)
+      - YOLO_MODEL_MODE=${YOLO_MODEL_MODE:-experimental}
+      - YOLO_MODEL_PATH=${YOLO_MODEL_PATH:-}
+      - YOLO_CLASSES_CONFIG=${YOLO_CLASSES_CONFIG:-/app/dataset/dataset.yaml}
+      - OCR_PREPROCESS_MAX_WIDTH=${OCR_PREPROCESS_MAX_WIDTH:-1600}
+      - RTSP_SOURCES_FILE=/app/rtsp_sources.json
+      - RTSP_ENABLED=${RTSP_ENABLED:-true}
+      - RTSP_MONITOR_ENABLED=${RTSP_MONITOR_ENABLED:-false}
+      - EVIDENCE_DIR=/app/evidence
+      - DEMO_IMAGES_DIR=/app/demo_images
+      - DEMO_CAMERAS_FILE=/app/demo_cameras.json
+      - DEMO_CONTAINERS_FILE=/app/bundled/demo_containers.json
+      - RESULTS_DIR=/app/results
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_ENABLED=${CELERY_ENABLED:-false}
+      - JSON_LOGS=${JSON_LOGS:-false}
+    ports:
+      - "5082:8001"
+    volumes:
+      - ai_evidence:/app/evidence
+      - ai_results:/app/results
+      - ./ai-service/demo_images:/app/demo_images
+      - ./ai-service/demo_videos:/app/demo_videos:ro
+      - ./ai-service/demo_cameras.json:/app/demo_cameras.json
+      - ./ai-service/camera_dynamic_frames.json:/app/camera_dynamic_frames.json
+      - ./ai-service/rtsp_sources.json:/app/rtsp_sources.json
+      - ./ai-service/dataset:/app/dataset:ro
+    depends_on:
+      - redis
+    networks:
+      - marsa-network
+    # OCR + YOLO + PyTorch : prévoir au moins 4 Go (Docker Desktop → Settings → Resources)
+    mem_limit: 6g
+
+  # --- Worker Celery (tâches asynchrones OCR / YOLO / RTSP) ---
+  celery-worker:
+    build:
+      context: ./ai-service
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    command: celery -A app.celery_worker:celery_app worker --loglevel=info
+    environment:
+      - DETECTION_MODE=${DETECTION_MODE:-demo}
+      - DETECTION_CONFIDENCE_THRESHOLD=${DETECTION_CONFIDENCE_THRESHOLD:-0.5}
+      - YOLO_ENABLED=${YOLO_ENABLED:-false}
+      - YOLO_MODEL_MODE=${YOLO_MODEL_MODE:-experimental}
+      - YOLO_MODEL_PATH=${YOLO_MODEL_PATH:-}
+      - YOLO_CLASSES_CONFIG=${YOLO_CLASSES_CONFIG:-/app/dataset/dataset.yaml}
+      - DEMO_IMAGES_DIR=/app/demo_images
+      - DEMO_CAMERAS_FILE=/app/demo_cameras.json
+      - DEMO_CONTAINERS_FILE=/app/bundled/demo_containers.json
+      - RESULTS_DIR=/app/results
+      - REDIS_URL=redis://redis:6379/0
+      - RTSP_SOURCES_FILE=/app/rtsp_sources.json
+    volumes:
+      - ai_results:/app/results
+      - ./ai-service/demo_images:/app/demo_images
+      - ./ai-service/demo_cameras.json:/app/demo_cameras.json
+      - ./ai-service/rtsp_sources.json:/app/rtsp_sources.json
+    depends_on:
+      - redis
+      - ai-service
+    networks:
+      - marsa-network
+
+  # --- Backend (Node.js / Express) ---
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=5081
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=${MYSQL_USER:-marsa_user}
+      - DB_PASSWORD=${MYSQL_PASSWORD:-marsa_pass_2026}
+      - DB_NAME=${MYSQL_DATABASE:-marsa_container_db}
+      - AI_SERVICE_URL=http://ai-service:8001
+      - JWT_SECRET=${JWT_SECRET:-marsa_jwt_secret_2026}
+      # --- Phase 6 : sécurité avancée (RBAC, MFA, audit, tokens, rate-limit) ---
+      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN:-8h}
+      - REFRESH_TOKEN_SECRET=${REFRESH_TOKEN_SECRET:-marsa_refresh_secret_2026}
+      - REFRESH_TOKEN_EXPIRES_IN=${REFRESH_TOKEN_EXPIRES_IN:-30d}
+      - MFA_ISSUER=${MFA_ISSUER:-Marsa Container Vision}
+      - LOGIN_MAX_ATTEMPTS=${LOGIN_MAX_ATTEMPTS:-5}
+      - LOGIN_LOCK_MINUTES=${LOGIN_LOCK_MINUTES:-15}
+      - AUDIT_LOGS_ENABLED=${AUDIT_LOGS_ENABLED:-true}
+      - RBAC_ENABLED=${RBAC_ENABLED:-true}
+      - SUPER_ADMIN_EMAIL=${SUPER_ADMIN_EMAIL:-admin@marsamaroc.com}
+      - INTEGRATION_API_KEY=${INTEGRATION_API_KEY:-marsa-integration-2026-secret}
+      - DETECTION_MODE=${DETECTION_MODE:-demo}
+      - PUBLIC_APP_URL=${PUBLIC_APP_URL:-http://localhost:5080}
+      - MARSA_AI_URL=${MARSA_AI_URL:-http://localhost:5173}
+      - MARSA_AI_HEALTH_URL=${MARSA_AI_HEALTH_URL:-http://host.docker.internal:5173}
+      - CAMERA_CREDENTIALS_KEY=${CAMERA_CREDENTIALS_KEY:-}
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:5080,http://localhost:5173}
+      # Phase 7 : URLs publiques (UI vs intégration Marsa / WhatsApp)
+      - NGROK_URL=${NGROK_URL:-}
+      - INTEGRATION_PUBLIC_BASE_URL=${INTEGRATION_PUBLIC_BASE_URL:-}
+      - MARSA_PUBLIC_PROXY_URL=${MARSA_PUBLIC_PROXY_URL:-}
+      - VISION_UPLOADS_DIR=/app/uploads/vision
+      - DEMO_IMAGES_DIR=/app/demo_images
+      # --- Phase 4 : notifications multi-canal ---
+      - NOTIFICATIONS_ENABLED=${NOTIFICATIONS_ENABLED:-true}
+      - NOTIFICATION_SIMULATION_MODE=${NOTIFICATION_SIMULATION_MODE:-true}
+      - NOTIFICATION_MIN_RESEND_MINUTES=${NOTIFICATION_MIN_RESEND_MINUTES:-60}
+      - WHATSAPP_NOTIFICATIONS_ENABLED=${WHATSAPP_NOTIFICATIONS_ENABLED:-true}
+      - WHATSAPP_PROVIDER=${WHATSAPP_PROVIDER:-simulation}
+      - WHATSAPP_ACCESS_TOKEN=${WHATSAPP_ACCESS_TOKEN:-}
+      - WHATSAPP_PHONE_NUMBER_ID=${WHATSAPP_PHONE_NUMBER_ID:-}
+      - WHATSAPP_DEFAULT_RECIPIENT=${WHATSAPP_DEFAULT_RECIPIENT:-+212600000000}
+      - EMAIL_NOTIFICATIONS_ENABLED=${EMAIL_NOTIFICATIONS_ENABLED:-true}
+      - EMAIL_PROVIDER=${EMAIL_PROVIDER:-simulation}
+      - SMTP_HOST=${SMTP_HOST:-}
+      - SMTP_PORT=${SMTP_PORT:-}
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASS=${SMTP_PASS:-}
+      - EMAIL_FROM=${EMAIL_FROM:-Marsa Container Vision <no-reply@marsamaroc.local>}
+      - EMAIL_DEFAULT_RECIPIENT=${EMAIL_DEFAULT_RECIPIENT:-ops@marsamaroc.local}
+      - SMS_NOTIFICATIONS_ENABLED=${SMS_NOTIFICATIONS_ENABLED:-false}
+      - SMS_PROVIDER=${SMS_PROVIDER:-simulation}
+      - SMS_DEFAULT_RECIPIENT=${SMS_DEFAULT_RECIPIENT:-+212600000000}
+    ports:
+      - "5081:5081"
+    volumes:
+      - vision_uploads:/app/uploads/vision
+      - ./ai-service/demo_images:/app/demo_images
+      - ./ai-service/camera_dynamic_frames.json:/app/camera_dynamic_frames.json
+    depends_on:
+      mysql:
+        condition: service_healthy
+      ai-service:
+        condition: service_started
+    networks:
+      - marsa-network
+
+  # --- Frontend (React) ---
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_MARSA_AI_URL: ${MARSA_AI_URL:-http://localhost:5173}
+    restart: unless-stopped
+    ports:
+      - "5080:80"
+    depends_on:
+      - backend
+      - ai-service
+    networks:
+      - marsa-network
+
+  # --- Optionnel : stack logs (docker compose --profile monitoring up -d) ---
+  loki:
+    profiles: ["monitoring"]
+    image: grafana/loki:2.9.4
+    command: -config.file=/etc/loki/local-config.yaml
+    ports:
+      - "3100:3100"
+    networks:
+      - marsa-network
+
+  grafana:
+    profiles: ["monitoring"]
+    image: grafana/grafana:10.4.3
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-admin}
+    depends_on:
+      - loki
+    networks:
+      - marsa-network
+
+volumes:
+  mysql_data:
+  ai_evidence:
+  ai_results:
+  vision_uploads:
+
+networks:
+  marsa-network:
+    driver: bridge

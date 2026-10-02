@@ -1,0 +1,135 @@
+/* ========================================
+   Marsa Container Vision — styles globaux
+   ======================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--mcv-bg);
+  color: var(--mcv-text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+  flex: 1;
+}
+
+.main-content--wide {
+  max-width: 1280px;
+}
+
+/* --- Sections --- */
+
+.search-section,
+.history-section {
+  margin-bottom: 0;
+}
+
+.section-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--mcv-navy);
+  margin-bottom: 0.35rem;
+  letter-spacing: -0.02em;
+}
+
+.section-description {
+  color: var(--mcv-text-muted);
+  font-size: 0.92rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.55;
+  max-width: 52rem;
+}
+
+/* --- Bannière d'erreur --- */
+
+.error-banner {
+  background: var(--mcv-error-bg);
+  border: 1px solid var(--mcv-error-border);
+  color: var(--mcv-error-text);
+  padding: 0.9rem 1.2rem;
+  border-radius: var(--mcv-radius-sm);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.92rem;
+  animation: mcvPageEnter 0.3s ease-out;
+}
+
+.error-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+/* --- Loading state --- */
+
+.app-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+  font-size: 0.95rem;
+  color: var(--mcv-text-muted);
+  gap: 0.75rem;
+}
+
+.app-loading--inline {
+  min-height: auto;
+  padding: 2rem;
+}
+
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(6, 182, 212, 0.2);
+  border-top-color: var(--mcv-cyan);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --- Footer --- */
+
+.app-footer {
+  text-align: center;
+  padding: 1.25rem 1.5rem;
+  color: var(--mcv-text-subtle);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--mcv-border);
+  background: var(--mcv-card);
+}
+
+.app-footer p {
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .main-content {
+    padding: 1.25rem 1rem 2rem;
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+  }
+}

@@ -1,0 +1,124 @@
+.notif-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.notif-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.notif-stat-value { font-size: 1.5rem; font-weight: 800; color: #0f172a; }
+.notif-stat-label { font-size: 0.72rem; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+.notif-stat--sent { background: #f0fdf4; border-color: #bbf7d0; }
+.notif-stat--sent .notif-stat-value { color: #15803d; }
+.notif-stat--failed { background: #fef2f2; border-color: #fecaca; }
+.notif-stat--failed .notif-stat-value { color: #b91c1c; }
+.notif-stat--pending { background: #fffbeb; border-color: #fde68a; }
+.notif-stat--skip { background: #f1f5f9; border-color: #e2e8f0; }
+.notif-stat--sim { background: #eff6ff; border-color: #bfdbfe; }
+.notif-stat--sim .notif-stat-value { color: #1d4ed8; }
+
+/* Paramètres */
+.notif-settings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+}
+
+.notif-setting {
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notif-setting-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.notif-setting-name { font-weight: 700; color: #0f172a; }
+
+.notif-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+}
+
+.notif-setting-meta { font-size: 0.8rem; color: #64748b; }
+
+.notif-setting-recipient input {
+  width: 100%;
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 0.85rem;
+}
+
+/* Liste */
+.notif-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+
+.notif-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  border-left: 5px solid #94a3b8;
+  background: #fff;
+}
+
+.notif-card--sent { border-left-color: #16a34a; }
+.notif-card--failed { border-left-color: #dc2626; }
+.notif-card--pending { border-left-color: #f59e0b; }
+.notif-card--skipped { border-left-color: #94a3b8; opacity: 0.8; }
+
+.notif-card-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+
+.notif-badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; }
+.notif-badge--channel-whatsapp { background: #dcfce7; color: #166534; }
+.notif-badge--channel-email { background: #dbeafe; color: #1e40af; }
+.notif-badge--channel-sms { background: #ede9fe; color: #6d28d9; }
+.notif-badge--status-sent { background: #dcfce7; color: #166534; }
+.notif-badge--status-failed { background: #fee2e2; color: #b91c1c; }
+.notif-badge--status-pending { background: #fef3c7; color: #92400e; }
+.notif-badge--status-skipped { background: #e5e7eb; color: #4b5563; }
+.notif-badge--sim { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+.notif-badge--type { background: #e2e8f0; color: #334155; }
+
+.notif-card-message { margin: 0 0 6px; font-weight: 600; color: #0f172a; white-space: pre-line; }
+.notif-card-meta { display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.8rem; color: #475569; }
+.notif-card-error { margin: 8px 0 0; font-size: 0.82rem; color: #b91c1c; font-weight: 600; }
+.notif-card-actions { display: flex; flex-direction: column; gap: 6px; }
+
+@media (max-width: 720px) {
+  .notif-card { grid-template-columns: 1fr; }
+}
+
+[data-theme='dark'] .notif-stat,
+[data-theme='dark'] .notif-setting,
+[data-theme='dark'] .notif-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+[data-theme='dark'] .notif-stat-value,
+[data-theme='dark'] .notif-setting-name,
+[data-theme='dark'] .notif-card-message { color: #f1f5f9; }

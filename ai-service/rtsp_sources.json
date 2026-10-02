@@ -1,0 +1,35 @@
+{
+  "_comment": "Sources RTSP multi-caméras. enabled=false ou rtsp_url null → mode démo (images locales).",
+  "sources": [
+    {
+      "camera_id": "CAM_01",
+      "name": "CAM_01",
+      "zone": "Zone A - Quai Nord",
+      "rtsp_url": null,
+      "enabled": false,
+      "notes": "Exemple : rtsp://user:pass@192.168.1.101:554/stream"
+    },
+    {
+      "camera_id": "CAM_02",
+      "name": "CAM_02",
+      "zone": "Zone B - Stockage",
+      "rtsp_url": null,
+      "enabled": false,
+      "notes": "RTSP_MONITOR_ENABLED=true + URL valide pour cache live-preview."
+    },
+    {
+      "camera_id": "CAM_03",
+      "name": "CAM_03",
+      "zone": "Zone C - Entrée Port",
+      "rtsp_url": null,
+      "enabled": false
+    },
+    {
+      "camera_id": "CAM_04",
+      "name": "CAM_04",
+      "zone": "Zone D - Sortie Port",
+      "rtsp_url": null,
+      "enabled": false
+    }
+  ]
+}

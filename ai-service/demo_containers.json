@@ -1,0 +1,82 @@
+[
+  {
+    "code": "79943",
+    "aliases": ["09943", "TGHU79943", "TGHU09943"],
+    "camera": "CAM_01",
+    "zone": "Zone A - Quai Nord",
+    "image": "cam01_quai_nord.png",
+    "confidence": 95
+  },
+  {
+    "code": "MSCU7894563",
+    "aliases": ["MSCU789456", "MSCU7894563", "789456"],
+    "camera": "CAM_02",
+    "zone": "Zone B - Stockage",
+    "image": "cam02_mscu7894563_rose.png",
+    "confidence": 95
+  },
+  {
+    "code": "MSCU789456",
+    "aliases": ["MSCU78945", "MSCU7894560"],
+    "camera": "CAM_02",
+    "zone": "Zone B - Stockage",
+    "image": "cam02_mscu789456.png",
+    "confidence": 95
+  },
+  {
+    "code": "MSCU998765",
+    "aliases": ["MSCU998764", "MSCU998766"],
+    "camera": "CAM_01",
+    "zone": "Zone A - Quai Nord",
+    "image": "cam01_mscu998765.png",
+    "confidence": 95
+  },
+  {
+    "code": "CSNU713245",
+    "aliases": ["CSNU713246", "CSNU713244"],
+    "camera": "CAM_01",
+    "zone": "Zone A - Quai Nord",
+    "image": "cam01_csnu713245.png",
+    "confidence": 95
+  },
+  {
+    "code": "HLXU450123",
+    "aliases": ["HLXU450124", "HLXU450122"],
+    "camera": "CAM_02",
+    "zone": "Zone B - Stockage",
+    "image": "cam02_hlxu450123.png",
+    "confidence": 95
+  },
+  {
+    "code": "UACU525678",
+    "aliases": ["UACU525679", "UACU525677"],
+    "camera": "CAM_03",
+    "zone": "Zone C - Entrée Port",
+    "image": "cam03_uacu525678.png",
+    "confidence": 95
+  },
+  {
+    "code": "CMAU987654",
+    "aliases": ["CMAU987653", "CMAU987655"],
+    "camera": "CAM_04",
+    "zone": "Zone D - Sortie Port",
+    "image": "cam04_cmau987654.png",
+    "confidence": 95
+  },
+  {
+    "code": "HLXU884512",
+    "aliases": ["HLXU884513", "HLXU884511"],
+    "camera": "CAM_04",
+    "zone": "Zone D - Sortie Port",
+    "image": "cam04_hlxu884512.png",
+    "confidence": 95
+  },
+  {
+    "code": "ONEU456789",
+    "aliases": ["ONEU456788", "ONEU456790"],
+    "camera": "CAM_05",
+    "zone": "Zone E - Zone transitoire",
+    "image": "cam05_oneu456789.png",
+    "confidence": 95
+  }
+]

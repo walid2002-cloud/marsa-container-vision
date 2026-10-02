@@ -1,0 +1,38 @@
+# Marsa Container Vision — Dataset YOLO conteneurs maritimes (Phase 5)
+# ---------------------------------------------------------------------------
+# Ce fichier décrit un futur dataset d'entraînement YOLOv8 spécialisé sur les
+# conteneurs maritimes. Il est utilisé par le service IA via la variable
+# d'environnement YOLO_CLASSES_CONFIG (défaut : /app/dataset/dataset.yaml).
+#
+# Tant qu'aucun modèle custom n'est entraîné, le service tourne en mode
+# YOLO expérimental (COCO) ou OCR seul — voir docs/yolo_training.md.
+# ---------------------------------------------------------------------------
+
+# Chemins relatifs à l'emplacement de ce fichier (convention Ultralytics).
+path: .
+train: images/train
+val: images/val
+test: images/test
+
+# Nombre de classes.
+nc: 6
+
+# Classes prévues (ordre = index de la classe dans les fichiers labels).
+names:
+  0: container            # conteneur maritime complet
+  1: container_code_area  # zone du numéro / code ISO 6346 sur le conteneur
+  2: seal                 # scellé de sécurité (porte)
+  3: door                 # portes du conteneur
+  4: truck                # camion / châssis porteur
+  5: crane                # grue / portique de manutention
+
+# Métadonnées applicatives (non utilisées par Ultralytics, informatives).
+meta:
+  project: marsa-container-vision
+  phase: 5
+  orientation_values: [front, back, left_side, right_side, angled, unknown]
+  notes: >
+    container_code_area sert à fournir une région d'intérêt (ROI) à l'OCR.
+    seal et door aident à contrôler l'intégrité et l'orientation du conteneur.
+    L'orientation n'est pas une classe de détection : elle sera dérivée de la
+    géométrie des boîtes (door/code_area) par un post-traitement dédié.

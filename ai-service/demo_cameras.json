@@ -1,0 +1,58 @@
+{
+  "_schema": 2,
+  "cameras": [
+    {
+      "id": "CAM_01",
+      "name": "CAM_01",
+      "zone": "Zone A - Quai Nord",
+      "status": "active",
+      "demo_image": "cam01_quai_nord.png"
+    },
+    {
+      "id": "CAM_02",
+      "name": "CAM_02",
+      "zone": "Zone B - Stockage",
+      "status": "active",
+      "demo_image": "cam02_hlxu450123.png"
+    },
+    {
+      "id": "CAM_03",
+      "name": "CAM_03",
+      "zone": "Zone C - Entrée Port",
+      "status": "active",
+      "demo_image": "cam03_uacu525678.png"
+    },
+    {
+      "id": "CAM_04",
+      "name": "CAM_04",
+      "zone": "Zone D - Sortie Port",
+      "status": "active",
+      "demo_image": "cam04_cmau987654.png"
+    },
+    {
+      "id": "CAM_05",
+      "name": "CAM_05",
+      "zone": "Zone E - Zone transitoire",
+      "status": "inactive",
+      "demo_image": "cam05_oneu456789.png"
+    }
+  ],
+  "images": {
+    "cam01_quai_nord.png": "CAM_01",
+    "cam01_mscu998765.png": "CAM_01",
+    "cam01_csnu713245.png": "CAM_01",
+    "cam02_hlxu450123.png": "CAM_02",
+    "cam02_mscu789456.png": "CAM_02",
+    "cam02_mscu789456_rose.png": "CAM_02",
+    "cam02_mscu7894563.png": "CAM_02",
+    "cam02_mscu7894563_rose.png": "CAM_02",
+    "cam03_uacu525678.png": "CAM_03",
+    "cam03_uacu525678_b.png": "CAM_03",
+    "cam03_mscu789456_b.png": "CAM_03",
+    "cam04_cmau987654.png": "CAM_04",
+    "cam04_hlxu884512.png": "CAM_04",
+    "cam05_mscu998765_blanc.png": "CAM_05",
+    "cam05_oneu456789.png": "CAM_05",
+    "cam03_upload_1782144036_a59f1cdb.png": "CAM_03"
+  }
+}

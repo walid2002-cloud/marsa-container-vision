@@ -1,0 +1,100 @@
+.user-menu { position: relative; }
+
+.user-menu-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem 0.25rem 0.25rem;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.04);
+  color: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.user-menu-trigger:hover { background: rgba(255,255,255,0.08); }
+
+.user-menu-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.user-menu-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  text-align: left;
+}
+.user-menu-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  max-width: 9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.user-menu-role {
+  font-size: 0.65rem;
+  color: #94a3b8;
+}
+.user-menu-chevron { font-size: 0.6rem; color: #64748b; margin-left: 0.15rem; }
+
+.user-menu-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 200px;
+  background: #1e293b;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  padding: 0.35rem 0;
+  z-index: 200;
+}
+
+.user-menu-warn {
+  margin: 0.35rem 0.65rem;
+  padding: 0.45rem 0.55rem;
+  border-radius: 6px;
+  background: rgba(251,191,36,0.15);
+  color: #fcd34d;
+  font-size: 0.68rem;
+}
+
+.user-menu-item {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.85rem;
+  text-align: left;
+  font-size: 0.78rem;
+  color: #e2e8f0;
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+.user-menu-item:hover { background: rgba(255,255,255,0.06); }
+.user-menu-item--danger { color: #fca5a5; }
+.user-menu-divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  margin: 0.25rem 0;
+}
+
+@media (max-width: 768px) {
+  .user-menu-info { display: none; }
+  .user-menu-chevron { display: none; }
+}
